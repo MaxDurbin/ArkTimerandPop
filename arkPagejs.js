@@ -37,7 +37,4 @@ setInterval(function(){
     console.log("countDown: " + CountDown);
 
 
-
-
-
-},1000)
+},1000);

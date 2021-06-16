@@ -3,32 +3,49 @@ html{
     background-color: rgb(43, 43, 43);
 }
 
+
+
 .header {
     padding: 4em;
     text-align: center;
     background: #000000;
-    color: rgba(36, 255, 3, 0.345);
+    color: rgba(255, 255, 255, 0.7);
     font-size: 10px;
   }
 
   .logo {
     border-radius: .5em;
-    background: rgba(65, 61, 61, 0.8);
+    background: rgba(65, 61, 61, 0.6);
     background-position: left top;
     padding: .1em; 
-    width: 5em;
     height: 1.5em; 
   }
 
   .gradient1{
     background-image: linear-gradient(to bottom, rgba(0,0,0,.4),  rgba(0,0,0,0), rgba(0,0,0,.6), rgba(0,0,0, 1)), 
         linear-gradient(75deg, rgb(0, 0, 0), rgba(0, 0, 0, .8), rgba(0, 0, 0, 0), rgba(0, 0, 0, .8), rgb(0, 0, 0)), url('Obelisk.png'),
-        linear-gradient(to bottom, rgba(0,0,0,0),  rgba(5, 109, 165, 1), rgba(168, 176, 11, 0.2), rgba(194, 194, 194, 0))
+        linear-gradient(to bottom, rgba(0,0,0,0),  rgb(26, 165, 5), rgba(0, 51, 255, 0.3), rgba(194, 194, 194, 0))
         ;
     background-repeat: no-repeat;
     background-position-x: center;
     width: auto;
     height: auto;
   }
+
+  #topRow{
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-top: 2%;
+    padding-bottom: 1%;
+    background-color: rgb(43, 43, 43);
+    color:whitesmoke;
+  }
+
+  .infoGroup{
+    background-color: rgb(72, 72, 72);
+    color: whitesmoke;
+    padding: 10%;
+  }
+
 
  
