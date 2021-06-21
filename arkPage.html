@@ -33,12 +33,18 @@
 
               <!--Timer Input-->
               <div class="input-group mb-3">
-                <input id="tinput" type="text" class="form-control" aria-label="inputTime" value="0:00">
+                <input id="tinput" type="text" class="form-control" value="0:00">
               </div>
 
               <!--Server Name Input-->
               <div class="input-group mb-3">
-                <input id="sinput" type="text" class="form-control" aria-label="inputTime" value="Server">
+                <input id="sinput" type="text" class="form-control" value="Server">
+              </div>
+
+              <!--timereset(maxtime)-->
+              <div class="input-group mb-3">
+                <label for="maxTime">The maximum time for upload. (what the timer will reset to)</label>
+                <input id="maxTime" type="text" class="form-control" value="15:30">
               </div>
 
 
@@ -55,7 +61,6 @@
                 <th scope="col"></th>
                 <th scope="col">Server name</th>
                 <th scope="col">countDown</th>
-                <th scope="col">Notes</th>
               </tr>
             </thead>
             <tbody id="tbodydisplay">
@@ -84,9 +89,12 @@
     make an input (server timer (smalls should be 15:30))
     have input alter the maximum number
     use bootstrape to make the page look good
+    ##########COMPLETE#################################
+
+    *2*
 
 
-    ----------
+
 -->
 </body>
 </html>

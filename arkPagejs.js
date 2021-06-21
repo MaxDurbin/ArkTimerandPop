@@ -1,8 +1,5 @@
 
 
-//varibales for testing purposes, not actually in use on final website
-var CountDown = 0.00; 
-CountDown = 0.00;
 
 
 //listeners must only be set up after the page is loaded or the getElementById function returns null
@@ -24,9 +21,10 @@ function setUpListeners(){
 
 function createTimer(){
    
-    //timer and server values from timer menu
+    //timer, maxTime, and server values from timer menu
     var tinput = document.getElementById("tinput").value;
     var sinput = document.getElementById("sinput").value;
+    var resetTime = document.getElementById("maxTime").value;
 
     //resets whats in the dom as that data is already saved through tinput and sinput above.
     //this way that menu resets every time the button is pressed.
@@ -34,7 +32,7 @@ function createTimer(){
     document.getElementById("sinput").value = "Server";
 
     //adding another row to the table, now the only thing to do is update each row every second in a helper function below.
-    document.getElementById("tbodydisplay").innerHTML = document.getElementById("tbodydisplay").innerHTML + "<tr><th scope='row'>3</th><td>"+sinput+"</td><td>"+tinput+"</td><td>pvp at blue ob</td></tr>";   
+    document.getElementById("tbodydisplay").innerHTML = document.getElementById("tbodydisplay").innerHTML + "<tr><th scope='row'>3</th><td>"+sinput+"</td><td>"+tinput+"</td><td style='display:none;'>"+resetTime+"</td></tr>";   
 }
 
     /* --------countDownEntryUpdater()----------
@@ -50,8 +48,14 @@ setInterval(function countDownEntryUpdater(){
     //grabs the table element and loops through it
     
     for(var i = 0; i < document.getElementById("tbodydisplay").querySelectorAll('tr').length; i++){
+        
+        
+
         //grabs the row
         var row = document.getElementById("tbodydisplay").querySelectorAll('tr')[i];
+
+        //specifies what the timer should reset to every time it hits 0:00
+        var maxTime = row.querySelectorAll('td')[2].innerHTML;
 
         //grabs the time from the row
         var time = row.querySelectorAll('td')[1].innerHTML;
@@ -73,47 +77,23 @@ setInterval(function countDownEntryUpdater(){
         }
 
         if(minutes < 0){
-            minutes = 15
-            seconds = 30
+            minutes = Number(maxTime.substring(0, maxTime.indexOf(':')));
+            seconds = Number(maxTime.substring(maxTime.indexOf(':')+1));
         }
 
-        row.querySelectorAll('td')[1].innerHTML = (minutes + ":" + seconds);
+        //instead of displaying 15:5 i want to display 15:05
+        //checks to see if seconds is less than 10 and if so add a zero, as a string, in front of seconds
+        var extraZero = ""
+        if(seconds < 10){
+            extraZero = "0"
+        }else{
+            extraZero = ""
+        }
+
+        row.querySelectorAll('td')[1].innerHTML = (minutes + ":" + extraZero + seconds);
     }
 
 },1000);
 
 
 
-
-setInterval(function(){
-    //trunk is definatly what we want to use becuase round will screw up ancase where sec is > 50sec. becuase the min would be rounded to one min higher than it really should be.
-    var minutes = (Math.trunc(CountDown));
-    //modulus countdown divided by 1 ie the remainder of countdown divided by 1. leaves us with a decimal remainder. we then cut off what we don't want by using toFixed()
-    var seconds = (Number((CountDown%1).toFixed(2)));
-
-    seconds = Number((seconds-.01).toFixed(2));
-
-    if(seconds < 0){
-        minutes = minutes - 1;
-        seconds = .60
-    }
-
-    if(minutes < 0){
-        minutes = 15
-        seconds = .30
-    }
-
-
-    //we need to recombine these two numbers after incrementing seconds so that the timer can be updated.
-
-    CountDown = (Number((minutes+seconds).toFixed(2)));
-    //console.log(minutes);
-    //console.log(seconds);
-    //console.log(minutes+seconds);
-
-   // console.log("min: " + minutes);
-  //  console.log("sec: " + seconds);
-  //  console.log("countDown: " + CountDown);
-    document.getElementById("goal2").innerHTML = CountDown;
-  //  console.log(document.getElementById("goal2").innerHTML)
-},1000);
