@@ -1,56 +1,86 @@
 
 
-
+//varibales for testing purposes, not actually in use on final website
 var CountDown = 0.00; 
-//lets say someone sets the countdown to 1.57
-//lets also say this is smalls and the timer resets every 15.30
 CountDown = 0.00;
 
-//heres the sitch.
-//we need a function that when called by the start button uses the server name and time to create a new countdown.
-//if the server name is left to it's defualt value it should count up from server1 to server2 and so on.
 
+//listeners must only be set up after the page is loaded or the getElementById function returns null
 window.onload = function(){setUpListeners()};
 
-
+//setting up the lisetener, could have done this inside line 9 but if more functions are added this will make things
+//easier to read
 function setUpListeners(){
     document.getElementById("start button").onclick = function(){
         createTimer();
     }
 }
 
+    /* --------createTimer()----------
+    This function creates a new row in the table using the time and server input fields information from the menu on the
+    left of the table. Another function below will loop through the table and update every entry once per second
+    so that time is kept up to date. 
+    */
+
 function createTimer(){
-    console.log("this function should create a timer when called according to the notes on line 9")
+   
     //timer and server values from timer menu
     var tinput = document.getElementById("tinput").value;
     var sinput = document.getElementById("sinput").value;
 
-    //firstly lets reset whats acutally in the dom because we have both the inputs we need from it.
-    //this way every time we click on the start timer button the values are reset to their defualts
-    document.getElementById("tinput").value = "0.00";
+    //resets whats in the dom as that data is already saved through tinput and sinput above.
+    //this way that menu resets every time the button is pressed.
+    document.getElementById("tinput").value = "0:00";
     document.getElementById("sinput").value = "Server";
 
-    //now i need to create a new row to the table. I make the new row first so that the code that counts time has a place to display it.
-    //I think having something concrete(the display area) will also make things more clear
+    //adding another row to the table, now the only thing to do is update each row every second in a helper function below.
+    document.getElementById("tbodydisplay").innerHTML = document.getElementById("tbodydisplay").innerHTML + "<tr><th scope='row'>3</th><td>"+sinput+"</td><td>"+tinput+"</td><td>pvp at blue ob</td></tr>";   
+}
 
-    //to append a new table i need to make the table innerHTML equall itself plus the new row
+    /* --------countDownEntryUpdater()----------
+    keeps every entry made by createTimer() up to date by looping through the tbody element.
+    As the loop loops through the rows it will take the current time of a timer and replace it with itself plus
+    one second.
 
-    document.getElementById("tbodydisplay").innerHTML = document.getElementById("tbodydisplay").innerHTML + "<tr><th scope='row'>3</th><td>"+sinput+"</td><td>"+tinput+"</td><td>pvp at blue ob</td></tr>";
-    
-    //now i need a function that somehow keep those times up to date
-    /* --------BrainStorming Jarbled----------
-    #1 try to call the setInterval function inside this (createTimer function) that keep track of one timer.
-    #2 use only one setInterval function that updates every timer by looping through the table getting the times, and updateing each one individually. To update each one I could loop through the rows of the table and update each timer.
-    I think option two is better but will probably be more complicated.
-    
+    By "updating" every row once per second each entry will have an accurate time
     */
 
 
-}
+setInterval(function countDownEntryUpdater(){
+    //grabs the table element and loops through it
+    
+    for(var i = 0; i < document.getElementById("tbodydisplay").querySelectorAll('tr').length; i++){
+        //grabs the row
+        var row = document.getElementById("tbodydisplay").querySelectorAll('tr')[i];
 
-   
+        //grabs the time from the row
+        var time = row.querySelectorAll('td')[1].innerHTML;
+        
+        //gets the part of the time var that comes before the ':'
+        var minutes = Number(time.substring(0, time.indexOf(':')));
+        //console.log(minutes);
 
+        //gets the second part of the time var that comes after the ':'
+        var seconds = Number(time.substring(time.indexOf(':')+1));
+        //console.log(seconds);
+        
+        seconds = seconds - 1;
+        //console.log(seconds);
 
+        if(seconds < 0){
+            minutes = minutes - 1;
+            seconds = 60
+        }
+
+        if(minutes < 0){
+            minutes = 15
+            seconds = 30
+        }
+
+        row.querySelectorAll('td')[1].innerHTML = (minutes + ":" + seconds);
+    }
+
+},1000);
 
 
 
