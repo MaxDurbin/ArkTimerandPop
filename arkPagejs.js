@@ -18,21 +18,24 @@ function setUpListeners(){
     left of the table. Another function below will loop through the table and update every entry once per second
     so that time is kept up to date. 
     */
-
+    //count just increments so that every row shows a different number
+var count = 0;
 function createTimer(){
-   
     //timer, maxTime, and server values from timer menu
     var tinput = document.getElementById("tinput").value;
     var sinput = document.getElementById("sinput").value;
     var resetTime = document.getElementById("maxTime").value;
+    var alarm = document.getElementById("alarm").value
 
     //resets whats in the dom as that data is already saved through tinput and sinput above.
     //this way that menu resets every time the button is pressed.
     document.getElementById("tinput").value = "0:00";
     document.getElementById("sinput").value = "Server";
 
+    count++;
+
     //adding another row to the table, now the only thing to do is update each row every second in a helper function below.
-    document.getElementById("tbodydisplay").innerHTML = document.getElementById("tbodydisplay").innerHTML + "<tr><th scope='row'>3</th><td>"+sinput+"</td><td>"+tinput+"</td><td style='display:none;'>"+resetTime+"</td></tr>";   
+    document.getElementById("tbodydisplay").innerHTML = document.getElementById("tbodydisplay").innerHTML + "<tr><th scope='row'>"+count+"</th><td>"+sinput+"</td><td>"+tinput+"</td><td style='display:none;'>"+resetTime+"</td><td style='display:none;'>"+alarm+"</td></tr>";   
 }
 
     /* --------countDownEntryUpdater()----------
@@ -57,6 +60,8 @@ setInterval(function countDownEntryUpdater(){
         //specifies what the timer should reset to every time it hits 0:00
         var maxTime = row.querySelectorAll('td')[2].innerHTML;
 
+        var alarmsound = row.querySelectorAll('td')[3].innerHTML;
+
         //grabs the time from the row
         var time = row.querySelectorAll('td')[1].innerHTML;
         
@@ -73,7 +78,7 @@ setInterval(function countDownEntryUpdater(){
 
         if(seconds < 0){
             minutes = minutes - 1;
-            seconds = 60
+            seconds = 59
         }
 
         if(minutes < 0){
@@ -81,6 +86,15 @@ setInterval(function countDownEntryUpdater(){
             seconds = Number(maxTime.substring(maxTime.indexOf(':')+1));
         }
 
+        //I want an alarm to notify the user at some specified time
+        //May also include extra code i want to run during a notification period
+        if(minutes == 2 && seconds == 0 ){
+            if(alarmsound != "none"){
+                var snd1 = new Audio(alarmsound + ".wav");
+                snd1.play();
+            }
+        }
+        
         //instead of displaying 15:5 i want to display 15:05
         //checks to see if seconds is less than 10 and if so add a zero, as a string, in front of seconds
         var extraZero = ""
