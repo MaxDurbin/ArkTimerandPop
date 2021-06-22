@@ -29,11 +29,15 @@
           <div class="card" style="width: 18rem; color: black; background-color: darkgray;">
             <div class="card-body">
               <h5 class="card-title">Timer</h5>
-              <p class="card-text">Input the current count-down (and press enter) or start at 0:00</p>
-
               <!--Timer Input-->
               <div class="input-group mb-3">
+                <label for="tinput">Enter the current count-down on upload timer (default 0:00)</label>
                 <input id="tinput" type="text" class="form-control" value="0:00">
+              </div>
+
+              <div class="input-group mb-3">
+                <label for="alarmtime">Enter when the alarm should sound (default 2:00) and server name</label>
+                <input id="alarmtime" type="text" class="form-control" value="2:00">
               </div>
 
               <!--Server Name Input-->
@@ -101,7 +105,13 @@
     ##########COMPLETE#################################
 
     *2*
+    add sound effect when user reaches two min
+    include multiple sound files and add a select so the user can chose the least disturbing noise
+    make a new input for the user to specify when the sound should go off
+    make another option for how many alarm increments there are
 
+    *3*
+    make some way to store prefrences
 
 
 -->

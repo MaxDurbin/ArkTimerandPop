@@ -25,7 +25,8 @@ function createTimer(){
     var tinput = document.getElementById("tinput").value;
     var sinput = document.getElementById("sinput").value;
     var resetTime = document.getElementById("maxTime").value;
-    var alarm = document.getElementById("alarm").value
+    var alarm = document.getElementById("alarm").value;
+    var alarmtime = document.getElementById("alarmtime").value;
 
     //resets whats in the dom as that data is already saved through tinput and sinput above.
     //this way that menu resets every time the button is pressed.
@@ -35,7 +36,7 @@ function createTimer(){
     count++;
 
     //adding another row to the table, now the only thing to do is update each row every second in a helper function below.
-    document.getElementById("tbodydisplay").innerHTML = document.getElementById("tbodydisplay").innerHTML + "<tr><th scope='row'>"+count+"</th><td>"+sinput+"</td><td>"+tinput+"</td><td style='display:none;'>"+resetTime+"</td><td style='display:none;'>"+alarm+"</td></tr>";   
+    document.getElementById("tbodydisplay").innerHTML = document.getElementById("tbodydisplay").innerHTML + "<tr><th scope='row'>"+count+"</th><td>"+sinput+"</td><td>"+tinput+"</td><td style='display:none;'>"+resetTime+"</td><td style='display:none;'>"+alarm+"</td><td style='display:none;'>"+alarmtime+"</td></tr>";   
 }
 
     /* --------countDownEntryUpdater()----------
@@ -61,6 +62,10 @@ setInterval(function countDownEntryUpdater(){
         var maxTime = row.querySelectorAll('td')[2].innerHTML;
 
         var alarmsound = row.querySelectorAll('td')[3].innerHTML;
+
+        var alarmtime = row.querySelectorAll('td')[4].innerHTML;
+        var alarmtimemin = Number(alarmtime.substring(0, alarmtime.indexOf(':')));
+        var alarmtimesec = Number(alarmtime.substring(alarmtime.indexOf(':')+1));
 
         //grabs the time from the row
         var time = row.querySelectorAll('td')[1].innerHTML;
@@ -88,7 +93,7 @@ setInterval(function countDownEntryUpdater(){
 
         //I want an alarm to notify the user at some specified time
         //May also include extra code i want to run during a notification period
-        if(minutes == 2 && seconds == 0 ){
+        if(minutes == alarmtimemin && seconds == alarmtimesec ){
             if(alarmsound != "none"){
                 var snd1 = new Audio(alarmsound + ".wav");
                 snd1.play();
