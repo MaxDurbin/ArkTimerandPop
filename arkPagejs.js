@@ -36,7 +36,31 @@ function createTimer(){
     count++;
 
     //adding another row to the table, now the only thing to do is update each row every second in a helper function below.
-    document.getElementById("tbodydisplay").innerHTML = document.getElementById("tbodydisplay").innerHTML + "<tr><th scope='row'>"+count+"</th><td>"+sinput+"</td><td>"+tinput+"</td><td style='display:none;'>"+resetTime+"</td><td style='display:none;'>"+alarm+"</td><td style='display:none;'>"+alarmtime+"</td></tr>";   
+    document.getElementById("tbodydisplay").innerHTML = document.getElementById("tbodydisplay").innerHTML + "<tr><th scope='row'>"+count+"</th><td>"+sinput+"<button id='button"+count+"' onclick='deleteButton(button"+count+");'>X</button>    <button id='button2"+count+"'onclick='subOneSec(button2"+count+");'>-</button>   <button id='button3"+count+"'onclick='addOneSec(button3"+count+");'>+</button>  </td><td>"+tinput+"</td><td style='display:none;'>"+resetTime+"</td><td style='display:none;'>"+alarm+"</td><td style='display:none;'>"+alarmtime+"</td></tr>";   
+}
+
+//uses the button name and html onclick() to delete that buttons row. Loops through the table until the buttons corresponding row is found, that row is then removed. 
+function deleteButton(buttonName){
+    buttonName.parentElement.parentElement.remove();
+}
+
+//uses the 2button name like above to subtract one second
+function subOneSec(buttonName2){
+    var time = buttonName2.parentElement.parentElement.querySelectorAll('td')[1].innerHTML;
+    var seconds = Number(time.substring(time.indexOf(':')+1));
+    var minutes = Number(time.substring(0, time.indexOf(':')));
+    seconds = seconds - 1;
+    buttonName2.parentElement.parentElement.querySelectorAll('td')[1].innerHTML = (minutes + ":" + seconds);
+}
+
+
+//same as above but adds one second
+function addOneSec(buttonName3){
+    var time = buttonName3.parentElement.parentElement.querySelectorAll('td')[1].innerHTML;
+    var seconds = Number(time.substring(time.indexOf(':')+1));
+    var minutes = Number(time.substring(0, time.indexOf(':')));
+    seconds = seconds + 1;
+    buttonName3.parentElement.parentElement.querySelectorAll('td')[1].innerHTML = (minutes + ":" + seconds);
 }
 
     /* --------countDownEntryUpdater()----------
@@ -46,7 +70,6 @@ function createTimer(){
 
     By "updating" every row once per second each entry will have an accurate time
     */
-
 
 setInterval(function countDownEntryUpdater(){
     //grabs the table element and loops through it
