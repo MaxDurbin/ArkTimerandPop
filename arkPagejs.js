@@ -36,7 +36,9 @@ function createTimer(){
     count++;
 
     //adding another row to the table, now the only thing to do is update each row every second in a helper function below.
-    document.getElementById("tbodydisplay").innerHTML = document.getElementById("tbodydisplay").innerHTML + "<tr><th scope='row'>"+count+"</th><td>"+sinput+"<button id='button"+count+"' onclick='deleteButton(button"+count+");'>X</button>    <button id='button2"+count+"'onclick='subOneSec(button2"+count+");'>-</button>   <button id='button3"+count+"'onclick='addOneSec(button3"+count+");'>+</button>  </td><td>"+tinput+"</td><td style='display:none;'>"+resetTime+"</td><td style='display:none;'>"+alarm+"</td><td style='display:none;'>"+alarmtime+"</td></tr>";   
+    var newRow = document.createElement('tr');
+    newRow.innerHTML = "<tr><th scope='row'>"+count+"</th>              <td>"+sinput+"<button id='button"+count+"' onclick='deleteButton(button"+count+");'>X</button>    <button id='button2"+count+"'onclick='subOneSec(button2"+count+");'>-</button>   <button id='button3"+count+"'onclick='addOneSec(button3"+count+");'>+</button>      <input id='soundSlider"+count+"' type='range' min='1' max='100' value='50' class='slider' id='myRange'> </td>                      <td>"+tinput+"</td>                    <td style='display:none;'>"+resetTime+"</td>            <td style='display:none;'>"+alarm+"</td>         <td style='display:none;'>"+alarmtime+"</td>     </tr>";
+    document.getElementById("tbodydisplay").appendChild(newRow); 
 }
 
 //uses the button name and html onclick() to delete that buttons row. Loops through the table until the buttons corresponding row is found, that row is then removed. 
@@ -62,6 +64,8 @@ function addOneSec(buttonName3){
     seconds = seconds + 1;
     buttonName3.parentElement.parentElement.querySelectorAll('td')[1].innerHTML = (minutes + ":" + seconds);
 }
+
+
 
     /* --------countDownEntryUpdater()----------
     keeps every entry made by createTimer() up to date by looping through the tbody element.
@@ -118,8 +122,9 @@ setInterval(function countDownEntryUpdater(){
         //May also include extra code i want to run during a notification period
         if(minutes == alarmtimemin && seconds == alarmtimesec ){
             if(alarmsound != "none"){
-                var snd1 = new Audio(alarmsound + ".wav");
-                snd1.play();
+                var snd = new Audio(alarmsound + ".wav");
+                snd.volume = row.querySelectorAll('td')[0].querySelector('input').value/100;
+                snd.play();
             }
         }
         
