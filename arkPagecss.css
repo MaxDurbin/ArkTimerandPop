@@ -3,6 +3,38 @@ html{
     background-color: rgb(43, 43, 50);
 }
 
+.slider{
+  overflow: hidden;
+  width: 50%;
+}
+
+
+@media screen and (max-width: 945px) and (min-width: 570px){
+  th{
+    display: none;
+  }
+  #server{
+    display: none;
+  }
+}
+@media screen and (max-width: 450px) and (min-width: 0px){
+  th{
+    display: none;
+  }
+  #server{
+    display: none;
+  }
+}
+
+
+table {
+  border-collapse: collapse;
+}
+th,
+td {
+  border: 1px solid #cecfd5;
+  padding: 10px 15px;
+}
 
 
 .header {

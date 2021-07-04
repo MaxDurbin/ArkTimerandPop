@@ -38,7 +38,7 @@ function createTimer(){
     //adding another row to the table, now the only thing to do is update each row every second in a helper function below.
     var newRow = document.createElement('tr');
     //[td] 0 = sinput; 1 = tinput; 2 = buttons; 3 = reset, alarmSound, alarmTime;
-    newRow.innerHTML = "<tr><th scope='row'>"+count+"</th> <td>"+sinput+"</td>  <td>"+tinput+"</td>        <td> <button id='button3"+count+"'onclick='addOneSec(button3"+count+");'>+</button><button id='button2"+count+"'onclick='subOneSec(button2"+count+");'>-</button><input id='soundSlider"+count+"' type='range' min='1' max='100' value='50' class='slider' id='myRange'> <button id='button"+count+"' onclick='deleteButton(button"+count+");'>X</button></td>    <td style='display:none;'> <div>"+resetTime+"</div> <div>"+alarmSound+"</div> <div>"+alarmTime+"</div></td></tr>";
+    newRow.innerHTML = "<tr><th scope='row' id='count'>"+count+"</th> <td id='server'>"+sinput+"</td>  <td>"+tinput+"</td>        <td> <button id='button3"+count+"'onclick='addOneSec(button3"+count+");'>+</button><button id='button2"+count+"'onclick='subOneSec(button2"+count+");'>-</button><input id='soundSlider"+count+"' type='range' min='1' max='100' value='50' class='slider' id='myRange'> <button id='button"+count+"' onclick='deleteButton(button"+count+");'>X</button></td>    <td style='display:none;'> <div>"+resetTime+"</div> <div>"+alarmSound+"</div> <div>"+alarmTime+"</div></td></tr>";
     document.getElementById("tbodydisplay").appendChild(newRow); 
 }
 
@@ -123,7 +123,7 @@ setInterval(function countDownEntryUpdater(){
         if(minutes == alarmTimeMin && seconds == alarmTimeSec ){
             if(alarmSound != "none"){
                 var snd = new Audio(alarmSound + ".wav");
-                snd.volume = row.querySelectorAll('td')[0].querySelector('input').value/100;
+                snd.volume = row.querySelectorAll('td')[2].querySelector('input').value/100;
                 snd.play();
             }
         }
